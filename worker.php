@@ -2,19 +2,12 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-define("RABBITMQ_HOST", "rabbitmq.tomclaus/be");
-define("RABBITMQ_PORT", 5672);
-define("RABBITMQ_USERNAME", "guest");
-define("RABBITMQ_PASSWORD", "guest");
-define("RABBITMQ_QUEUE_NAME", "task_queue");
-
 $connection = new \PhpAmqpLib\Connection\AMQPStreamConnection(
-    RABBITMQ_HOST, 
-    RABBITMQ_PORT, 
-    RABBITMQ_USERNAME, 
-    RABBITMQ_PASSWORD
+    getenv('RABBITMQ_HOST'), 
+    getenv('RABBITMQ_PORT'), 
+    getenv('RABBITMQ_USERNAME'), 
+    getenv('RABBITMQ_PASSWORD')
 );
-
 
 $channel = $connection->channel();
 
@@ -44,7 +37,7 @@ $callback = function($msg){
 $channel->basic_qos(null, 1, null);
 
 $channel->basic_consume(
-    $queue = RABBITMQ_QUEUE_NAME,
+    $queue = getenv('RABBITMQ_QUEUE_NAME),
     $consumer_tag = '',
     $no_local = false,
     $no_ack = false,
@@ -60,4 +53,3 @@ while (count($channel->callbacks))
 
 $channel->close();
 $connection->close();
-Copy to clipboard
