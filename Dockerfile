@@ -1,10 +1,12 @@
 FROM php:7.0-cli
+MAINTAINER Tom Claus <mail@tomclaus.be>
 
 # Install Mysqli
 RUN docker-php-ext-install mysqli
 
 # Install Libs
-RUN apt-get install -y librabbitmq-dev \
+RUN apt-get update && apt-get install -y \
+    librabbitmq-dev \
     && pecl install amqp \
     && docker-php-ext-enable amqp
     
@@ -13,8 +15,9 @@ RUN apt-get update && \
     apt-get install curl nano && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Volumes
-VOLUME [" www/app", "vikingdeals_app" ]
+# Workdir
+ADD . /app
+WORKDIR /app
 
 # Install app dependencies
 RUN composer install --no-interaction 
