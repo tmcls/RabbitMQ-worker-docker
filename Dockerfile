@@ -22,7 +22,7 @@ RUN apt-get update && \
 RUN curl --silent --show-error https://getcomposer.org/installer | php
 
 # Install app dependencies
-RUN composer install --no-interaction 
+RUN php composer.phar install --no-interaction 
 
 # Run worker
 CMD [ "php", "./worker.php" ]
