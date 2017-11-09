@@ -13,7 +13,7 @@ $channel = $connection->channel();
 
 # Create the queue if it doesn't already exist.
 $channel->queue_declare(
-    $queue = RABBITMQ_QUEUE_NAME,
+    $queue = getenv('RABBITMQ_QUEUE_NAME),
     $passive = false,
     $durable = true,
     $exclusive = false,
