@@ -17,8 +17,9 @@ RUN docker-php-ext-install mysqli
    
 # Install Composer
 RUN apt-get update && \
-    apt-get install curl nano && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    apt-get install -y --no-install-recommends git zip
+
+RUN curl --silent --show-error https://getcomposer.org/installer | php
 
 # Install app dependencies
 RUN composer install --no-interaction 
