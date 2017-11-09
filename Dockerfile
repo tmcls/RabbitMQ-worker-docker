@@ -13,7 +13,7 @@ ADD . /app
 WORKDIR /app
 
 # Install PHP Extensions
-RUN docker-php-ext-install mcrypt zip bcmath pdo_mysql mysql mysqli mbstring opcache soap
+RUN docker-php-ext-install bcmath pdo_mysql mysql mysqli
    
 # Install Composer
 RUN apt-get update && \
