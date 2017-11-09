@@ -3,14 +3,8 @@ MAINTAINER Tom Claus <mail@tomclaus.be>
 
 # Install Mysqli
 RUN docker-php-ext-install mysqli
-
-# Install Libs
-RUN apt-get update && apt-get install -y \
-    librabbitmq-dev \
-    && pecl install amqp \
-    && docker-php-ext-enable amqp
-    
-# Install dependencies
+   
+# Install dependencies // Composer
 RUN apt-get update && \
     apt-get install curl nano && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
